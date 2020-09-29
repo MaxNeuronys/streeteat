@@ -1,18 +1,43 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div v-if="this.loadMap === false" id="mapLoader" class="flex flex-center">
+        <div @click="goTopMap">
+            <button>Find Me</button>
+        </div>
+    </div>
+    <div v-else-if="this.loadMap === true">
+        <Map></Map>
+    </div>    
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Map from '../components/sEMap.vue'
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+  data() {
+      return {
+       loadMap : false,
+      }
+    },
+      components:{
+      Map
+  },
+
+  methods: {
+    goTopMap(){
+      this.loadMap = true
+    }
   }
 }
+
 </script>
+<style scoped>
+#mapLoader{
+  background-image: url("https://media.wired.com/photos/59269cd37034dc5f91bec0f1/191:100/pass/GoogleMapTA.jpg");
+  opacity: 0.85;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 100% ;
+}
+</style>
