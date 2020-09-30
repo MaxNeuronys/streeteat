@@ -1,10 +1,10 @@
 <template>
-    <div v-if="this.loadMap === false" id="mapLoader" class="flex flex-center">
+    <div v-if="!loadMap" id="mapLoader" class="flex flex-center">
         <div @click="goTopMap">
             <button>Find Me</button>
         </div>
     </div>
-    <div v-else-if="this.loadMap === true">
+    <div v-else-if="loadMap">
         <Map></Map>
     </div>    
 </template>

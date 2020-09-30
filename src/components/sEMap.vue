@@ -1,11 +1,12 @@
 <template>
-  <div class="App" />
+  <div>
+
+
+  </div>
 </template>
 
 <script>
-//import gmapsInit from '../utils/gmaps'
-//import axios from 'axios'
-import { mapMutations } from "vuex";
+import servicesMap from "@/services/services.map"
 
 export default {
   name: "EitMap",
@@ -16,11 +17,12 @@ export default {
         lat: null,
         lng: null,
       },
+      restaurantlist: undefined,
     };
   },
 
+
   methods: {
-    ...mapMutations("Pos", ["SETCURRENTPOS"]),
 
     userLocation() {
       if ("geolocation" in navigator) {
@@ -29,8 +31,7 @@ export default {
             this.setPos = {
               lat: position.coords.latitude,
               lng: position.coords.longitude,
-            };
-            this.SETCURRENTPOS(this.setPos);
+            }
           },
           (err) => {
             console.log("err: ", err);
@@ -39,7 +40,13 @@ export default {
       }
     },
 
-    initMap() {},
+    loadMap(){
+      servicesMap.initMap(this.setPos, 'restaurant', 20)
+        .then(resp => {
+          console.log(resp)
+          this.restaurantlist = resp
+        })
+    },
   },
 
   created() {
